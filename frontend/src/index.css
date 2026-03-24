@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-bg: #0F172A;
+  --color-brand-sidebar: #1E293B;
+  --color-brand-accent: #10B981;
+}
+
+body {
+  @apply bg-brand-bg text-slate-200 antialiased;
+}
