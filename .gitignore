@@ -16,3 +16,6 @@ frontend/*.local
 .vscode/
 .DS_Store
 *.log
+
+# Personal / Private Docs
+backend/docs/DELOITTE_TECH_STRATEGY.md
