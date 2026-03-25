@@ -29,20 +29,23 @@ public class ResourceTrackerApplication {
             } catch (Exception e) {
                 // Ignore if DB not ready
             }
-            if (!userRepository.existsByUsername("admin@logicauth.com")) {
-                User admin = new User();
+            User admin = userRepository.findByUsername("admin@logicauth.com").orElse(null);
+            if (admin == null) {
+                admin = new User();
                 admin.setUsername("admin@logicauth.com");
-                admin.setEmail("admin@logicauth.com");
-                admin.setPassword(passwordEncoder.encode("admin123"));
-                admin.setEnabled(true);
-                
-                Set<String> roles = new HashSet<>();
-                roles.add("ROLE_ADMIN");
-                admin.setRoles(roles);
-                
-                userRepository.save(admin);
-                System.out.println("LogicAuth Seed: Created recruiter admin user (admin / admin123)");
             }
+            
+            // Always ensure these fields are correct for the demo admin
+            admin.setEmail("admin@logicauth.com");
+            admin.setPassword(passwordEncoder.encode("admin123"));
+            admin.setEnabled(true);
+            
+            Set<String> roles = new HashSet<>();
+            roles.add("ROLE_ADMIN");
+            admin.setRoles(roles);
+            
+            userRepository.save(admin);
+            System.out.println("LogicAuth Seed: Verified/Created recruiter admin user (admin@logicauth.com / admin123)");
         };
     }
 }
