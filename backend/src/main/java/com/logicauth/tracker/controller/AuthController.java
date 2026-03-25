@@ -45,10 +45,15 @@ public class AuthController {
         // 2. Generate JWT Token
         String jwt = jwtUtils.generateTokenFromUsername(loginRequest.getUsername());
 
-        // 3. Return the token to the user
-        Map<String, String> response = new HashMap<>();
+        // 3. Fetch user roles to return to frontend
+        User user = userRepository.findByUsername(loginRequest.getUsername()).orElse(null);
+        Set<String> roles = (user != null) ? user.getRoles() : new HashSet<>();
+
+        // 4. Return the token and roles to the user
+        Map<String, Object> response = new HashMap<>();
         response.put("token", jwt);
         response.put("username", loginRequest.getUsername());
+        response.put("roles", roles);
         
         return ResponseEntity.ok(response);
     }

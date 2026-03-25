@@ -29,9 +29,9 @@ public class ResourceTrackerApplication {
             } catch (Exception e) {
                 // Ignore if DB not ready
             }
-            if (!adminExists) {
+            if (!userRepository.existsByUsername("admin@logicauth.com")) {
                 User admin = new User();
-                admin.setUsername("admin");
+                admin.setUsername("admin@logicauth.com");
                 admin.setEmail("admin@logicauth.com");
                 admin.setPassword(passwordEncoder.encode("admin123"));
                 admin.setEnabled(true);
